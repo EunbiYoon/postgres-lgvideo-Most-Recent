@@ -6,7 +6,7 @@
 # 	review TEXT NULL
 # );
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
  
 app = Flask(__name__)
@@ -43,6 +43,11 @@ def submit():
     db.session.add(data)
     db.session.commit()
     return render_template('success.html')
+
+#top, front loader each templates go back to main
+@app.route('/home', methods=['POST'])
+def home():      
+    return redirect(url_for('index')) # do something
 
 # top loader template render
 @app.route('/topnoise', methods=['POST'])
@@ -143,9 +148,6 @@ def frontsmell():
 def frontthinq():      
     return render_template('fl/thinq.html') # do something
 
-@app.route('/home', methods=['POST'])
-def home():      
-    return render_template('index.html') # do something
 
 
 if __name__ == "__main__":
